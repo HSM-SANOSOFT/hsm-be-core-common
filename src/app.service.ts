@@ -6,6 +6,6 @@ export class AppService {
   private readonly logger = new Logger(envs.COMMON_MICROSERVICE_NAME);
 
   InitMS() {
-    return 'Microservice is up and running!';
+    return 'Microservice is up and running !';
   }
 }
