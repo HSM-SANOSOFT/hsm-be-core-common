@@ -76,54 +76,54 @@ export class AppService {
 
   async validarCedula(validacedulaDto: ValidaCedulaDto) {
     const { ci } = validacedulaDto;
+  
 
     if (!/^\d{10}$/.test(ci)) {
-      throw new RpcException({
+      return{
         status: 404,
-        message: 'La cedula ingresada debe de tener 10 numero',
-      });
+        message: 'La cédula ingresada debe tener 10 dígitos.',
+      };
     }
+  
 
-    // Extraer los primeros dos dígitos y verificar que sean un código de provincia válido
     const provincia = parseInt(ci.substring(0, 2), 10);
     if ((provincia < 1 || provincia > 24) && provincia !== 30) {
-      throw new RpcException({
+      return{
         status: 404,
         message:
           'Por favor, verifique el número de cédula ingresado, ya que no corresponde a ninguna provincia válida ni al código asignado para el extranjero.',
-      });
+      };
     }
-
+  
     const digitos = ci.split('').map(Number);
     const digitoVerificador = digitos[9];
     const coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+  
 
     let suma = 0;
     for (let i = 0; i < coeficientes.length; i++) {
       let producto = digitos[i] * coeficientes[i];
       if (producto >= 10) {
-        producto -= 9;
+        producto -= 9; 
       }
       suma += producto;
     }
 
     const residuo = suma % 10;
     const digitoCalculado = residuo === 0 ? 0 : 10 - residuo;
-
-    let estado: any;
-    let mensaje = '';
+  
 
     if (digitoCalculado === digitoVerificador) {
-      estado = 201;
-      mensaje = 'Numero de Cedula correcto';
+      return {
+        success: 200,
+        message: 'Número de cédula correcto.',
+      };
     } else {
-      estado = 404;
-      mensaje = 'Numero de cedula incorrecto';
+      return{
+        status: 400,
+        message: 'El número de cédula ingresado es incorrecto.',
+      };
     }
-
-    throw new RpcException({
-      status: 404,
-      message: mensaje,
-    });
   }
+  
 }
