@@ -6,6 +6,7 @@ import { DatabaseService } from './database/database.service';
 import { ParroquiasDto } from './dto/parroquias.dto';
 import { PromocionesDto } from './dto/promociones.dto';
 import { ValidaCedulaDto } from './dto/validacedula.dto';
+import {OcupacionesDto} from './dto/ocupaciones.dto';
 
 @Injectable()
 export class AppService {
@@ -124,6 +125,27 @@ export class AppService {
         message: 'El número de cédula ingresado es incorrecto.',
       };
     }
+  }
+
+  async ocupaciones(ocupacionesDto: OcupacionesDto) {
+    const { filtro } = ocupacionesDto;
+    let datos: any;
+    let where = '';
+    if (filtro.length > 0) {
+      where = `ESTADO ='D' AND OCUPACION like '%${filtro}%' or CODIGO like '%${filtro}%'`;
+    } else {
+      where = `ESTADO ='D'`;
+    }
+    try {
+      datos = await this.databaseService.getocupaciones(where);
+    } catch (error) {
+      throw new RpcException({
+        status: HttpStatus.BAD_REQUEST,
+        message: error,
+        keys: '',
+      });
+    }
+    return datos;
   }
   
 }

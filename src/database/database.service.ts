@@ -29,6 +29,17 @@ export class DatabaseService {
     return result.rows.length > 0 ? result.rows : null;
   }
 
+
+  async getocupaciones(filtro: string) {
+    const result = await this.connection.execute(
+      `select CODIGO,OCUPACION from OCUPACIONES where ` + filtro,
+      [],
+      { outFormat: oracledb.OUT_FORMAT_OBJECT },
+    );
+    return result.rows.length > 0 ? result.rows : null;
+  }
+  
+
   async getparroquias(filtro: string) {
     const result = await this.connection.execute(
       `select DISTINCT PA.CODIGO,PA.PARROQUIA,PA.CNT_PRV_CODIGO,PRO.PROVINCIA,PA.CNT_CODIGO,CAN.CANTON

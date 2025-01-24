@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ParroquiasDto } from './dto/parroquias.dto';
 import { PromocionesDto } from './dto/promociones.dto';
 import { ValidaCedulaDto } from './dto/validacedula.dto';
+import { OcupacionesDto } from './dto/ocupaciones.dto';
 
 @Controller()
 export class AppController {
@@ -34,4 +35,10 @@ export class AppController {
   validarCedula(@Payload() validacedulaDto: ValidaCedulaDto) {
     return this.appService.validarCedula(validacedulaDto);
   }
+
+  @MessagePattern('ocupaciones')
+  ocupaciones(@Payload() ocupacionesDto: OcupacionesDto) {
+    return this.appService.ocupaciones(ocupacionesDto);
+  }
+
 }
