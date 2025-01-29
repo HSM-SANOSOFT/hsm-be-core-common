@@ -19,7 +19,7 @@ interface EnvVars {
   DB_USER: string;
   DB_PASSWORD: string;
   DB_CONNECTION_STRING: string;
-  ORACLE_CLIENT_PATH: string;
+  LD_LIBRARY_PATH: string;
 }
 
 const envsSchema = joi
@@ -31,7 +31,7 @@ const envsSchema = joi
     DB_USER: joi.string().required(),
     DB_PASSWORD: joi.string().required(),
     DB_CONNECTION_STRING: joi.string().required(),
-    ORACLE_CLIENT_PATH: joi.string().default('C:/ORACLE/instantclient_12_1'),
+    LD_LIBRARY_PATH: joi.string().default('C:/ORACLE/instantclient_12_1'),
   })
   .unknown()
   .required();
@@ -52,5 +52,5 @@ export const envs = {
   DB_USER: envVars.DB_USER,
   DB_PASSWORD: envVars.DB_PASSWORD,
   DB_CONNECTION_STRING: envVars.DB_CONNECTION_STRING,
-  ORACLE_CLIENT_PATH: envVars.ORACLE_CLIENT_PATH,
+  LD_LIBRARY_PATH: envVars.LD_LIBRARY_PATH,
 };
