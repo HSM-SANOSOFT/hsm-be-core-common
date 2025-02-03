@@ -12,9 +12,9 @@ dotenv.config({
 });
 
 interface EnvVars {
-  COMMON_MICROSERVICE_NAME: string;
-  COMMON_MICROSERVICE_HOST: string;
-  COMMON_MICROSERVICE_PORT: number;
+  HSM_CORE_COMMON_NAME: string;
+  HSM_CORE_COMMON_HOST: string;
+  HSM_CORE_COMMON_PORT: number;
 
   DB_USER: string;
   DB_PASSWORD: string;
@@ -24,9 +24,9 @@ interface EnvVars {
 
 const envsSchema = joi
   .object({
-    COMMON_MICROSERVICE_NAME: joi.string().required(),
-    COMMON_MICROSERVICE_HOST: joi.string().default('localhost'),
-    COMMON_MICROSERVICE_PORT: joi.number().required(),
+    HSM_CORE_COMMON_NAME: joi.string().required(),
+    HSM_CORE_COMMON_HOST: joi.string().default('localhost'),
+    HSM_CORE_COMMON_PORT: joi.number().required(),
 
     DB_USER: joi.string().required(),
     DB_PASSWORD: joi.string().required(),
@@ -45,9 +45,9 @@ if (error) {
 const envVars: EnvVars = value;
 
 export const envs = {
-  COMMON_MICROSERVICE_NAME: envVars.COMMON_MICROSERVICE_NAME,
-  COMMON_MICROSERVICE_HOST: envVars.COMMON_MICROSERVICE_HOST,
-  COMMON_MICROSERVICE_PORT: envVars.COMMON_MICROSERVICE_PORT,
+  HSM_CORE_COMMON_NAME: envVars.HSM_CORE_COMMON_NAME,
+  HSM_CORE_COMMON_HOST: envVars.HSM_CORE_COMMON_HOST,
+  HSM_CORE_COMMON_PORT: envVars.HSM_CORE_COMMON_PORT,
 
   DB_USER: envVars.DB_USER,
   DB_PASSWORD: envVars.DB_PASSWORD,
