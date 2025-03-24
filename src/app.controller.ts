@@ -1,5 +1,5 @@
 import { Controller, Logger } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
 @Controller()
@@ -9,6 +9,15 @@ export class AppController {
 
   @MessagePattern('tipoAtencion')
   async tipoAtencion() {
-    return await this.appService.tipoAtencion();
+    const result = await this.appService.tipoAtencion();
+    this.logger.log('tipoAtencion(): ', result);
+    return result;
+  }
+
+  @MessagePattern('tipoServiciosChat')
+  async tipoServiciosChat() {
+    const result = await this.appService.tipoServiciosChat();
+    this.logger.log('tipoServiciosChat(): ', result);
+    return result;
   }
 }
