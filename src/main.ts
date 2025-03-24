@@ -18,4 +18,5 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   await app.listen();
 }
+
 void bootstrap();
