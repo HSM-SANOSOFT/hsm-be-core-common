@@ -4,10 +4,10 @@ import {
   CgRefCodeService,
   SgiPilaresService,
   VwServiciosChatService,
-} from './services';
+} from './repositories';
 
 @Injectable()
-export class DatabaseRepositories {
+export class DatabaseRepository {
   constructor(
     public cgRefCodeService: CgRefCodeService,
     public sgiPilaresSerivice: SgiPilaresService,
