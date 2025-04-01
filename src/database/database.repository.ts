@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { CgRefCodeService, SgiPilaresService } from './services';
-import { VwServiciosChatService } from './services/vwServiciosChat.service';
+import {
+  CgRefCodeService,
+  SgiPilaresService,
+  VwServiciosChatService,
+} from './services';
 
 @Injectable()
 export class DatabaseRepositories {
