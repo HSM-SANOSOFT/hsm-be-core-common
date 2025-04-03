@@ -26,7 +26,9 @@ export const databaseProviders = [
 
         return pool;
       } catch (error) {
-        logger.error(`Error during database initialization: ${error}`);
+        logger.error(
+          `Error during database initialization: ${JSON.stringify(error)}`,
+        );
       }
     },
   },

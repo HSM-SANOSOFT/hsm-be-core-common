@@ -9,15 +9,15 @@ export class AppController {
 
   @MessagePattern('tipoAtencion')
   async tipoAtencion() {
-    const result = await this.appService.tipoAtencion();
-    this.logger.log('tipoAtencion(): ', result);
-    return result;
+    const response = await this.appService.tipoAtencion();
+    this.logger.log('tipoAtencion(): ' + JSON.stringify(response));
+    return response;
   }
 
   @MessagePattern('tipoServiciosChat')
   async tipoServiciosChat() {
-    const result = await this.appService.tipoServiciosChat();
-    this.logger.log('tipoServiciosChat(): ', result);
-    return result;
+    const response = await this.appService.tipoServiciosChat();
+    this.logger.log('tipoServiciosChat(): ' + JSON.stringify(response));
+    return response;
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import { DatabaseRepository } from './database/database.repository';
+
 @Injectable()
 export class AppService {
   private readonly logger = new Logger(AppService.name);
