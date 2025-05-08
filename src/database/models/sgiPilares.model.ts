@@ -6,5 +6,6 @@ export class SgiPilaresModel {
     public NOM_COR?: string,
     public ESTADO?: string,
     public CHATBOT?: string,
+    public ORDER?: number,
   ) {}
 }
