@@ -1,3 +1,4 @@
+import { models } from '@hsm-sanosoft/hsm-database-schema/dist/oracle';
 import { Injectable, Logger } from '@nestjs/common';
 
 import { DatabaseRepository } from './database/database.repository';
