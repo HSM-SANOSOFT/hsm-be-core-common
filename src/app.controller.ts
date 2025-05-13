@@ -1,5 +1,5 @@
 import { Controller, Logger } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
 @Controller()
@@ -18,6 +18,13 @@ export class AppController {
   async tipoServiciosChat() {
     const response = await this.appService.tipoServiciosChat();
     this.logger.log('tipoServiciosChat(): ' + JSON.stringify(response));
+    return response;
+  }
+
+  @MessagePattern('chatbotMenus')
+  async chatbotMenus(@Payload('id') id: string) {
+    const response = await this.appService.chatbotMenus(id);
+    this.logger.log('chatbotMenus(): ' + JSON.stringify(response));
     return response;
   }
 }

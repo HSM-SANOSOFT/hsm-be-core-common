@@ -12,6 +12,6 @@ import { DatabaseRepositories } from './repositories';
     DatabaseService,
     ...DatabaseRepositories,
   ],
-  exports: [DatabaseService, DatabaseRepository],
+  exports: [DatabaseRepository],
 })
 export class DatabaseModule {}

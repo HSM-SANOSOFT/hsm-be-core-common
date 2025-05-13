@@ -1,4 +1,4 @@
-import { models } from '@hsm-sanosoft/hsm-database-schema/dist/oracle';
+import { models } from '@hsm-sanosoft/hsm-database';
 import { Injectable, Logger } from '@nestjs/common';
 
 import { DatabaseRepository } from './database/database.repository';
@@ -22,5 +22,24 @@ export class AppService {
       await this.databaseRepository.vwServiciosChatService.tipoServiciosChat();
     const data = result;
     return data;
+  }
+
+  async chatbotMenus(id: string) {
+    switch (id) {
+      case 'principal': {
+        const principal =
+          await this.databaseRepository.crmChatMenuPrincipalService.chatbootMenuPrincipal();
+        const principalMenu = principal
+          ?.sort((a, b) => a.ORDEN! - b.ORDEN!)
+          .map(item => ({
+            ORDEN: item.ORDEN,
+            NOM_COR: item.NOM_COR,
+            PALABRA: item.PALABRA,
+          }));
+        return principalMenu;
+      }
+      default:
+        return [];
+    }
   }
 }

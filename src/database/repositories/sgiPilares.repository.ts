@@ -1,8 +1,8 @@
+import { models } from '@hsm-sanosoft/hsm-database';
 import { Injectable, Logger } from '@nestjs/common';
 import * as oracledb from 'oracledb';
 
 import { DatabaseService } from '../database.service';
-import { SgiPilaresModel } from '../models/sgiPilares.model';
 
 @Injectable()
 export class SgiPilaresService {
@@ -10,7 +10,7 @@ export class SgiPilaresService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async tipoAtencion() {
-    const result = await this.databaseService.execute<SgiPilaresModel>(
+    const result = await this.databaseService.execute<models.SgiPilaresModel>(
       `SELECT * FROM SGI_PILARES`,
       [],
       { outFormat: oracledb.OUT_FORMAT_OBJECT },

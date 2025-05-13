@@ -14,7 +14,7 @@ const envsSchema = joi
     DB_USER: joi.string().required(),
     DB_PASSWORD: joi.string().required(),
     DB_CONNECTION_STRING: joi.string().required(),
-    LD_LIBRARY_PATH: joi.string().default('C:/ORACLE/instantclient_12_1'),
+    LD_LIBRARY_PATH: joi.string().default('/usr/lib/oracle/12.1/client64/lib'),
   })
   .unknown()
   .required();

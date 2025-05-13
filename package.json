@@ -23,7 +23,7 @@
     "@eslint/config-array": "^0.19.2",
     "@eslint/js": "^9.22.0",
     "@eslint/object-schema": "^2.1.6",
-    "@hsm-sanosoft/hsm-database-schema": "^0.0.19",
+    "@hsm-sanosoft/hsm-database": "^0.0.43",
     "@nestjs/axios": "^4.0.0",
     "@nestjs/common": "^11.0.11",
     "@nestjs/core": "^11.0.11",
