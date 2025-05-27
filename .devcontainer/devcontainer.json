@@ -1,0 +1,52 @@
+{
+  "name": "hsm-be-core-common",
+  "dockerComposeFile": ["docker-compose.dev.yml","../../../../../../docker-compose.dev.yml"],
+  "service": "hsm-be-core-common",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "angular.ng-template",
+        "cweijan.vscode-database-client2",
+        "docker.docker",
+        "usernamehw.errorlens",
+        "dbaeumer.vscode-eslint",
+        "github.vscode-pull-request-github",
+        "visualstudioexptteam.vscodeintellicode",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "christian-kohler.npm-intellisense",
+        "oracle.sql-developer",
+        "ibm.output-colorizer",
+        "mylesmurphy.prettify-ts",
+        "redhat.vscode-yaml"
+      ],
+      "settings": {
+        "javascript.updateImportsOnFileMove.enabled": "always",
+        "files.autoSave": "afterDelay",
+        "editor.formatOnSave": true,
+        "[typescript]": {
+          "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        },
+        "[json]": {
+          "editor.defaultFormatter": "vscode.json-language-features"
+        },
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false,
+        "editor.trimAutoWhitespace": false,
+        "editor.comments.insertSpace": false,
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "typescript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+        "javascript.format.insertSpaceAfterOpeningAndBeforeClosingEmptyBraces": false,
+        "git.autofetch": true,
+        "editor.formatOnPaste": true
+      }
+    }
+  },
+  "postCreateCommand": "pnpm install",
+  "remoteUser": "node"
+}

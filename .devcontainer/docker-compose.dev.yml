@@ -1,0 +1,18 @@
+services:
+  hsm-be-core-common:
+    image: hsm-be-core-common:latest
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.dev
+    container_name: hsm-be-core-common
+    networks:
+      - hsm-backend-network
+    volumes:
+      - ../:/app
+      - /app/node_modules
+    env_file:
+      - ../../../../../../.env
+    environment:
+      SECRET_PATH: /be/core/common
+      LD_LIBRARY_PATH: /usr/lib/oracle/12.1/client64/lib
+    restart: unless-stopped
