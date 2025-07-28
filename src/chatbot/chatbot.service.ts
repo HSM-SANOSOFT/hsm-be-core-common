@@ -1,9 +1,14 @@
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'axios';
+import pLimit from 'p-limit';
 import { envs } from 'src/config';
 
-import { ConversationFilterPost, ConversationFilterResponse } from './type';
+import {
+  ConversationFilterPost,
+  ConversationFilterResponse,
+  MessagesResponse,
+} from './type';
 
 @Injectable()
 export class ChatbotService {
@@ -42,38 +47,62 @@ export class ChatbotService {
      */
     try {
       const path = '/conversations/filter';
-      let page = 1;
-      let totalMessages = 0;
-      let fetchedConversations = 0;
-      let allConversations = 0;
 
-      do {
-        this.logger.debug(`Fetching page ${page}`);
-        const response = await this.client.post<ConversationFilterResponse>(
-          path,
-          payload,
-          { params: { page } },
-        );
+      const ConversationResponse =
+        await this.client.post<ConversationFilterResponse>(path, payload, {
+          params: { page: 1 },
+        });
 
-        const { data } = response;
+      const totalConversations = ConversationResponse.data.meta.all_count;
+      const convPerPage = ConversationResponse.data.payload.length;
+      const totalPages = Math.ceil(totalConversations / convPerPage);
 
-        this.logger.debug(`Received response for page ${page}`);
-        const {
-          meta: { all_count },
-          payload: convs,
-        } = data;
+      const pageLimit = pLimit(5);
+      const pagePromises = Array.from(
+        { length: totalPages - 1 },
+        (_, i) => i + 2,
+      ).map(page =>
+        pageLimit(async () => {
+          this.logger.debug(`Fetching page ${page}`);
+          const resp = await this.client.post<ConversationFilterResponse>(
+            path,
+            payload,
+            { params: { page } },
+          );
+          return resp;
+        }),
+      );
 
-        allConversations = all_count;
-        fetchedConversations += convs.length;
-        totalMessages += convs.reduce(
-          (sum, conv) => sum + conv.messages.length,
-          0,
-        );
-        page++;
-      } while (fetchedConversations < allConversations);
+      const otherPages = await Promise.all(pagePromises);
+
+      const allConversations = [
+        ...ConversationResponse.data.payload,
+        ...otherPages.flatMap(page => page.data.payload),
+      ];
+
+      const conversationIds = allConversations.map(conv => conv.id);
+
+      const messageLimit = pLimit(10);
+
+      const messagePromises = conversationIds.map(id =>
+        messageLimit(async () => {
+          this.logger.debug(`Fetching messages for conversation ${id}`);
+          const resp = await this.client.get<MessagesResponse>(
+            `/conversations/${id}/messages`,
+          );
+          return resp;
+        }),
+      );
+
+      const messageCounts = await Promise.all(messagePromises);
+
+      const totalMessages = messageCounts.reduce(
+        (sum, response) => sum + response.data.payload.length,
+        0,
+      );
 
       return {
-        n_conv: allConversations,
+        n_conv: totalConversations,
         n_msn: totalMessages,
       };
     } catch (error) {
