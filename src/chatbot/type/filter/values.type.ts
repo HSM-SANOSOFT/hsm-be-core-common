@@ -8,6 +8,6 @@ export type Values = {
   [Operator.is_present]: null;
   [Operator.is_not_present]: null;
   [Operator.is_greater_than]: Date;
-  [Operator.is_lesser_than]: Date;
+  [Operator.is_less_than]: Date;
   [Operator.is_x_days_before]: Date;
 };
